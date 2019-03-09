@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imyrdahang.dao.ArticlesMapper" >
+  <resultMap id="BaseResultMap" type="com.imyrdahang.pojo.Articles" >
+    <id column="a_id" property="aId" jdbcType="INTEGER" />
+    <result column="a_m_id" property="aMId" jdbcType="INTEGER" />
+    <result column="a_title" property="aTitle" jdbcType="VARCHAR" />
+    <result column="a_abstract" property="aAbstract" jdbcType="VARCHAR" />
+    <result column="a_u_id" property="aUId" jdbcType="INTEGER" />
+    <result column="a_hits" property="aHits" jdbcType="INTEGER" />
+    <result column="a_chart" property="aChart" jdbcType="VARCHAR" />
+    <result column="a_create_date" property="aCreateDate" jdbcType="TIMESTAMP" />
+    <result column="a_update_date" property="aUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="a_state" property="aState" jdbcType="INTEGER" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    a_id, a_m_id, a_title, a_abstract, a_u_id, a_hits, a_chart, a_create_date, a_update_date, 
+    a_state, ext1, ext2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imyrdahang.pojo.ArticlesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from articles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from articles
+    where a_id = #{aId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from articles
+    where a_id = #{aId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imyrdahang.pojo.ArticlesExample" >
+    delete from articles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imyrdahang.pojo.Articles" useGeneratedKeys="true" keyProperty="aId" keyColumn="a_id">
+    insert into articles (a_id, a_m_id, a_title, 
+      a_abstract, a_u_id, a_hits, 
+      a_chart, a_create_date, a_update_date, 
+      a_state, ext1, ext2)
+    values (#{aId,jdbcType=INTEGER}, #{aMId,jdbcType=INTEGER}, #{aTitle,jdbcType=VARCHAR}, 
+      #{aAbstract,jdbcType=VARCHAR}, #{aUId,jdbcType=INTEGER}, #{aHits,jdbcType=INTEGER}, 
+      #{aChart,jdbcType=VARCHAR}, #{aCreateDate,jdbcType=TIMESTAMP}, #{aUpdateDate,jdbcType=TIMESTAMP}, 
+      #{aState,jdbcType=INTEGER}, #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imyrdahang.pojo.Articles" >
+    insert into articles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aId != null" >
+        a_id,
+      </if>
+      <if test="aMId != null" >
+        a_m_id,
+      </if>
+      <if test="aTitle != null" >
+        a_title,
+      </if>
+      <if test="aAbstract != null" >
+        a_abstract,
+      </if>
+      <if test="aUId != null" >
+        a_u_id,
+      </if>
+      <if test="aHits != null" >
+        a_hits,
+      </if>
+      <if test="aChart != null" >
+        a_chart,
+      </if>
+      <if test="aCreateDate != null" >
+        a_create_date,
+      </if>
+      <if test="aUpdateDate != null" >
+        a_update_date,
+      </if>
+      <if test="aState != null" >
+        a_state,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aId != null" >
+        #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="aMId != null" >
+        #{aMId,jdbcType=INTEGER},
+      </if>
+      <if test="aTitle != null" >
+        #{aTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="aAbstract != null" >
+        #{aAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="aUId != null" >
+        #{aUId,jdbcType=INTEGER},
+      </if>
+      <if test="aHits != null" >
+        #{aHits,jdbcType=INTEGER},
+      </if>
+      <if test="aChart != null" >
+        #{aChart,jdbcType=VARCHAR},
+      </if>
+      <if test="aCreateDate != null" >
+        #{aCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aUpdateDate != null" >
+        #{aUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aState != null" >
+        #{aState,jdbcType=INTEGER},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imyrdahang.pojo.ArticlesExample" resultType="java.lang.Integer" >
+    select count(*) from articles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update articles
+    <set >
+      <if test="record.aId != null" >
+        a_id = #{record.aId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aMId != null" >
+        a_m_id = #{record.aMId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aTitle != null" >
+        a_title = #{record.aTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aAbstract != null" >
+        a_abstract = #{record.aAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aUId != null" >
+        a_u_id = #{record.aUId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aHits != null" >
+        a_hits = #{record.aHits,jdbcType=INTEGER},
+      </if>
+      <if test="record.aChart != null" >
+        a_chart = #{record.aChart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aCreateDate != null" >
+        a_create_date = #{record.aCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aUpdateDate != null" >
+        a_update_date = #{record.aUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aState != null" >
+        a_state = #{record.aState,jdbcType=INTEGER},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update articles
+    set a_id = #{record.aId,jdbcType=INTEGER},
+      a_m_id = #{record.aMId,jdbcType=INTEGER},
+      a_title = #{record.aTitle,jdbcType=VARCHAR},
+      a_abstract = #{record.aAbstract,jdbcType=VARCHAR},
+      a_u_id = #{record.aUId,jdbcType=INTEGER},
+      a_hits = #{record.aHits,jdbcType=INTEGER},
+      a_chart = #{record.aChart,jdbcType=VARCHAR},
+      a_create_date = #{record.aCreateDate,jdbcType=TIMESTAMP},
+      a_update_date = #{record.aUpdateDate,jdbcType=TIMESTAMP},
+      a_state = #{record.aState,jdbcType=INTEGER},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imyrdahang.pojo.Articles" >
+    update articles
+    <set >
+      <if test="aMId != null" >
+        a_m_id = #{aMId,jdbcType=INTEGER},
+      </if>
+      <if test="aTitle != null" >
+        a_title = #{aTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="aAbstract != null" >
+        a_abstract = #{aAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="aUId != null" >
+        a_u_id = #{aUId,jdbcType=INTEGER},
+      </if>
+      <if test="aHits != null" >
+        a_hits = #{aHits,jdbcType=INTEGER},
+      </if>
+      <if test="aChart != null" >
+        a_chart = #{aChart,jdbcType=VARCHAR},
+      </if>
+      <if test="aCreateDate != null" >
+        a_create_date = #{aCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aUpdateDate != null" >
+        a_update_date = #{aUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aState != null" >
+        a_state = #{aState,jdbcType=INTEGER},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where a_id = #{aId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imyrdahang.pojo.Articles" >
+    update articles
+    set a_m_id = #{aMId,jdbcType=INTEGER},
+      a_title = #{aTitle,jdbcType=VARCHAR},
+      a_abstract = #{aAbstract,jdbcType=VARCHAR},
+      a_u_id = #{aUId,jdbcType=INTEGER},
+      a_hits = #{aHits,jdbcType=INTEGER},
+      a_chart = #{aChart,jdbcType=VARCHAR},
+      a_create_date = #{aCreateDate,jdbcType=TIMESTAMP},
+      a_update_date = #{aUpdateDate,jdbcType=TIMESTAMP},
+      a_state = #{aState,jdbcType=INTEGER},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR}
+    where a_id = #{aId,jdbcType=INTEGER}
+  </update>
+  <!-- ======================================================================== -->
+  <select id="selectByPagesAndRows" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from articles 
+  	<where >
+  		<if test="aState != null" >
+        a_state != #{aState} 
+      	</if>
+      	<if test="aMId != null" >
+        AND a_m_id = #{aMId} 
+      	</if>
+      	<if test="aUId != null" >
+        AND a_u_id = #{aUId} 
+      	</if>
+  	</where>
+  	order by ${fieldAndSort}
+  	LIMIT #{pages},#{rows}
+  </select>
+  <select id="selectByRootMIdAndPagesAndRows" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from articles 
+  	<where >
+  		<if test="aState != null" >
+        a_state != #{aState} 
+      	</if>
+      	<if test="aUId != null" >
+        AND a_u_id = #{aUId} 
+      	</if>
+      	<if test="mFId != null" >
+        AND a_m_id IN(SELECT t1.m_id FROM models t1 WHERE t1.m_f_id=#{mFId}) 
+      	</if>
+  	</where>
+  	order by ${fieldAndSort}
+  	LIMIT #{pages},#{rows}
+  </select>
+  <select id="selectCountByRootMId" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  	select count(*) 
+  	from articles 
+  	<where >
+  		<if test="aState != null" >
+        a_state != #{aState} 
+      	</if>
+      	<if test="aUId != null" >
+        AND a_u_id = #{aUId} 
+      	</if>
+      	<if test="mFId != null" >
+        AND a_m_id IN(SELECT t1.m_id FROM models t1 WHERE t1.m_f_id=#{mFId}) 
+      	</if>
+  	</where>
+  </select>
+  <select id="selectArticleByUpAndDownPiece" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	(SELECT 
+  	<include refid="Base_Column_List" />
+  	FROM articles 
+  	WHERE a_update_date &gt; (SELECT a_update_date FROM articles WHERE a_id= #{aId} ) 
+  	AND a_m_id=#{aMId} 
+  	ORDER BY a_update_date ASC 
+  	LIMIT 1) 
+	UNION ALL 
+	(SELECT 
+	<include refid="Base_Column_List" />
+	FROM articles 
+	WHERE a_update_date &lt; (SELECT a_update_date FROM articles WHERE a_id= #{aId} ) 
+	AND a_m_id=#{aMId} 
+	ORDER BY a_update_date DESC 
+	LIMIT 1)
+  </select>
+  <update id="updateArticleOfHtisByPrimaryKey" parameterType="java.util.Map">
+  	UPDATE articles 
+  	SET a_hits=a_hits+#{sum} 
+  	WHERE a_id=#{aId}
+  </update>
+</mapper>

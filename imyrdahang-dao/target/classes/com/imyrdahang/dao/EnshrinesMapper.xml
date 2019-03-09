@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imyrdahang.dao.EnshrinesMapper" >
+  <resultMap id="BaseResultMap" type="com.imyrdahang.pojo.Enshrines" >
+    <id column="e_id" property="eId" jdbcType="INTEGER" />
+    <result column="e_name" property="eName" jdbcType="VARCHAR" />
+    <result column="e_url" property="eUrl" jdbcType="VARCHAR" />
+    <result column="e_depict" property="eDepict" jdbcType="VARCHAR" />
+    <result column="e_state" property="eState" jdbcType="INTEGER" />
+    <result column="e_u_id" property="eUId" jdbcType="INTEGER" />
+    <result column="e_create_date" property="eCreateDate" jdbcType="TIMESTAMP" />
+    <result column="e_update_date" property="eUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    e_id, e_name, e_url, e_depict, e_state, e_u_id, e_create_date, e_update_date, ext1, 
+    ext2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imyrdahang.pojo.EnshrinesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from enshrines
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from enshrines
+    where e_id = #{eId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from enshrines
+    where e_id = #{eId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imyrdahang.pojo.EnshrinesExample" >
+    delete from enshrines
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imyrdahang.pojo.Enshrines" >
+    insert into enshrines (e_id, e_name, e_url, 
+      e_depict, e_state, e_u_id, 
+      e_create_date, e_update_date, ext1, 
+      ext2)
+    values (#{eId,jdbcType=INTEGER}, #{eName,jdbcType=VARCHAR}, #{eUrl,jdbcType=VARCHAR}, 
+      #{eDepict,jdbcType=VARCHAR}, #{eState,jdbcType=INTEGER}, #{eUId,jdbcType=INTEGER}, 
+      #{eCreateDate,jdbcType=TIMESTAMP}, #{eUpdateDate,jdbcType=TIMESTAMP}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imyrdahang.pojo.Enshrines" >
+    insert into enshrines
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eId != null" >
+        e_id,
+      </if>
+      <if test="eName != null" >
+        e_name,
+      </if>
+      <if test="eUrl != null" >
+        e_url,
+      </if>
+      <if test="eDepict != null" >
+        e_depict,
+      </if>
+      <if test="eState != null" >
+        e_state,
+      </if>
+      <if test="eUId != null" >
+        e_u_id,
+      </if>
+      <if test="eCreateDate != null" >
+        e_create_date,
+      </if>
+      <if test="eUpdateDate != null" >
+        e_update_date,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eId != null" >
+        #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="eName != null" >
+        #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="eUrl != null" >
+        #{eUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="eDepict != null" >
+        #{eDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="eState != null" >
+        #{eState,jdbcType=INTEGER},
+      </if>
+      <if test="eUId != null" >
+        #{eUId,jdbcType=INTEGER},
+      </if>
+      <if test="eCreateDate != null" >
+        #{eCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eUpdateDate != null" >
+        #{eUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imyrdahang.pojo.EnshrinesExample" resultType="java.lang.Integer" >
+    select count(*) from enshrines
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update enshrines
+    <set >
+      <if test="record.eId != null" >
+        e_id = #{record.eId,jdbcType=INTEGER},
+      </if>
+      <if test="record.eName != null" >
+        e_name = #{record.eName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eUrl != null" >
+        e_url = #{record.eUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eDepict != null" >
+        e_depict = #{record.eDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eState != null" >
+        e_state = #{record.eState,jdbcType=INTEGER},
+      </if>
+      <if test="record.eUId != null" >
+        e_u_id = #{record.eUId,jdbcType=INTEGER},
+      </if>
+      <if test="record.eCreateDate != null" >
+        e_create_date = #{record.eCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eUpdateDate != null" >
+        e_update_date = #{record.eUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update enshrines
+    set e_id = #{record.eId,jdbcType=INTEGER},
+      e_name = #{record.eName,jdbcType=VARCHAR},
+      e_url = #{record.eUrl,jdbcType=VARCHAR},
+      e_depict = #{record.eDepict,jdbcType=VARCHAR},
+      e_state = #{record.eState,jdbcType=INTEGER},
+      e_u_id = #{record.eUId,jdbcType=INTEGER},
+      e_create_date = #{record.eCreateDate,jdbcType=TIMESTAMP},
+      e_update_date = #{record.eUpdateDate,jdbcType=TIMESTAMP},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imyrdahang.pojo.Enshrines" >
+    update enshrines
+    <set >
+      <if test="eName != null" >
+        e_name = #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="eUrl != null" >
+        e_url = #{eUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="eDepict != null" >
+        e_depict = #{eDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="eState != null" >
+        e_state = #{eState,jdbcType=INTEGER},
+      </if>
+      <if test="eUId != null" >
+        e_u_id = #{eUId,jdbcType=INTEGER},
+      </if>
+      <if test="eCreateDate != null" >
+        e_create_date = #{eCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eUpdateDate != null" >
+        e_update_date = #{eUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where e_id = #{eId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imyrdahang.pojo.Enshrines" >
+    update enshrines
+    set e_name = #{eName,jdbcType=VARCHAR},
+      e_url = #{eUrl,jdbcType=VARCHAR},
+      e_depict = #{eDepict,jdbcType=VARCHAR},
+      e_state = #{eState,jdbcType=INTEGER},
+      e_u_id = #{eUId,jdbcType=INTEGER},
+      e_create_date = #{eCreateDate,jdbcType=TIMESTAMP},
+      e_update_date = #{eUpdateDate,jdbcType=TIMESTAMP},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR}
+    where e_id = #{eId,jdbcType=INTEGER}
+  </update>
+  <!-- ==============================自加======================================== -->
+  <select id="selectByPagesAndRows" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from enshrines 
+  	<where >
+  		<if test="eState != null" >
+        e_state != #{eState} 
+      	</if>
+      	<if test="eUId != null" >
+        AND e_u_id = #{eUId} 
+      	</if>
+  	</where>
+  	order by ${fieldAndSort}
+  	LIMIT #{pages},#{rows}
+  </select>
+</mapper>

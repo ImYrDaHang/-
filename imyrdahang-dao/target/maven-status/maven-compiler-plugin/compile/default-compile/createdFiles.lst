@@ -1,0 +1,6 @@
+com\imyrdahang\dao\ConfigsMapper.class
+com\imyrdahang\dao\ModelsMapper.class
+com\imyrdahang\dao\ArticleContentsMapper.class
+com\imyrdahang\dao\UsersMapper.class
+com\imyrdahang\dao\ArticlesMapper.class
+com\imyrdahang\dao\EnshrinesMapper.class

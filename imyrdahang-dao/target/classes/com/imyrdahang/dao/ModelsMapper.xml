@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imyrdahang.dao.ModelsMapper" >
+  <resultMap id="BaseResultMap" type="com.imyrdahang.pojo.Models" >
+    <id column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="m_name" property="mName" jdbcType="VARCHAR" />
+    <result column="m_f_id" property="mFId" jdbcType="INTEGER" />
+    <result column="m_depict" property="mDepict" jdbcType="VARCHAR" />
+    <result column="m_keyword" property="mKeyword" jdbcType="VARCHAR" />
+    <result column="m_a_sum" property="mASum" jdbcType="INTEGER" />
+    <result column="m_create_date" property="mCreateDate" jdbcType="TIMESTAMP" />
+    <result column="m_u_id" property="mUId" jdbcType="INTEGER" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    m_id, m_name, m_f_id, m_depict, m_keyword, m_a_sum, m_create_date, m_u_id, ext1, 
+    ext2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imyrdahang.pojo.ModelsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from models
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from models
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from models
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imyrdahang.pojo.ModelsExample" >
+    delete from models
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imyrdahang.pojo.Models" >
+    insert into models (m_id, m_name, m_f_id, 
+      m_depict, m_keyword, m_a_sum, 
+      m_create_date, m_u_id, ext1, 
+      ext2)
+    values (#{mId,jdbcType=INTEGER}, #{mName,jdbcType=VARCHAR}, #{mFId,jdbcType=INTEGER}, 
+      #{mDepict,jdbcType=VARCHAR}, #{mKeyword,jdbcType=VARCHAR}, #{mASum,jdbcType=INTEGER}, 
+      #{mCreateDate,jdbcType=TIMESTAMP}, #{mUId,jdbcType=INTEGER}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imyrdahang.pojo.Models" >
+    insert into models
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="mName != null" >
+        m_name,
+      </if>
+      <if test="mFId != null" >
+        m_f_id,
+      </if>
+      <if test="mDepict != null" >
+        m_depict,
+      </if>
+      <if test="mKeyword != null" >
+        m_keyword,
+      </if>
+      <if test="mASum != null" >
+        m_a_sum,
+      </if>
+      <if test="mCreateDate != null" >
+        m_create_date,
+      </if>
+      <if test="mUId != null" >
+        m_u_id,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="mName != null" >
+        #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mFId != null" >
+        #{mFId,jdbcType=INTEGER},
+      </if>
+      <if test="mDepict != null" >
+        #{mDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="mKeyword != null" >
+        #{mKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="mASum != null" >
+        #{mASum,jdbcType=INTEGER},
+      </if>
+      <if test="mCreateDate != null" >
+        #{mCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUId != null" >
+        #{mUId,jdbcType=INTEGER},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imyrdahang.pojo.ModelsExample" resultType="java.lang.Integer" >
+    select count(*) from models
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update models
+    <set >
+      <if test="record.mId != null" >
+        m_id = #{record.mId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mName != null" >
+        m_name = #{record.mName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mFId != null" >
+        m_f_id = #{record.mFId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mDepict != null" >
+        m_depict = #{record.mDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mKeyword != null" >
+        m_keyword = #{record.mKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mASum != null" >
+        m_a_sum = #{record.mASum,jdbcType=INTEGER},
+      </if>
+      <if test="record.mCreateDate != null" >
+        m_create_date = #{record.mCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mUId != null" >
+        m_u_id = #{record.mUId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update models
+    set m_id = #{record.mId,jdbcType=INTEGER},
+      m_name = #{record.mName,jdbcType=VARCHAR},
+      m_f_id = #{record.mFId,jdbcType=INTEGER},
+      m_depict = #{record.mDepict,jdbcType=VARCHAR},
+      m_keyword = #{record.mKeyword,jdbcType=VARCHAR},
+      m_a_sum = #{record.mASum,jdbcType=INTEGER},
+      m_create_date = #{record.mCreateDate,jdbcType=TIMESTAMP},
+      m_u_id = #{record.mUId,jdbcType=INTEGER},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imyrdahang.pojo.Models" >
+    update models
+    <set >
+      <if test="mName != null" >
+        m_name = #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mFId != null" >
+        m_f_id = #{mFId,jdbcType=INTEGER},
+      </if>
+      <if test="mDepict != null" >
+        m_depict = #{mDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="mKeyword != null" >
+        m_keyword = #{mKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="mASum != null" >
+        m_a_sum = #{mASum,jdbcType=INTEGER},
+      </if>
+      <if test="mCreateDate != null" >
+        m_create_date = #{mCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUId != null" >
+        m_u_id = #{mUId,jdbcType=INTEGER},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imyrdahang.pojo.Models" >
+    update models
+    set m_name = #{mName,jdbcType=VARCHAR},
+      m_f_id = #{mFId,jdbcType=INTEGER},
+      m_depict = #{mDepict,jdbcType=VARCHAR},
+      m_keyword = #{mKeyword,jdbcType=VARCHAR},
+      m_a_sum = #{mASum,jdbcType=INTEGER},
+      m_create_date = #{mCreateDate,jdbcType=TIMESTAMP},
+      m_u_id = #{mUId,jdbcType=INTEGER},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <!-- =================================================================== -->
+  <select id="selectFatherModelByaMId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from models 
+  	WHERE m_id=(SELECT m_f_id 
+  				FROM models 
+  				WHERE m_id=#{aMId})
+  </select>
+</mapper>

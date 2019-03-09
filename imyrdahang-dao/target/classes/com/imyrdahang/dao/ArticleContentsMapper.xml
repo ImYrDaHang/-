@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imyrdahang.dao.ArticleContentsMapper" >
+  <resultMap id="BaseResultMap" type="com.imyrdahang.pojo.ArticleContents" >
+    <id column="a_c_id" property="aCId" jdbcType="INTEGER" />
+    <result column="a_c_keyword" property="aCKeyword" jdbcType="VARCHAR" />
+    <result column="a_c_depict" property="aCDepict" jdbcType="VARCHAR" />
+    <result column="a_c_url" property="aCUrl" jdbcType="VARCHAR" />
+    <result column="a_c_url_depict" property="aCUrlDepict" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.imyrdahang.pojo.ArticleContents" extends="BaseResultMap" >
+    <result column="a_c_content" property="aCContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    a_c_id, a_c_keyword, a_c_depict, a_c_url, a_c_url_depict, ext1, ext2
+  </sql>
+  <sql id="Blob_Column_List" >
+    a_c_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.imyrdahang.pojo.ArticleContentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article_contents
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imyrdahang.pojo.ArticleContentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from article_contents
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article_contents
+    where a_c_id = #{aCId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article_contents
+    where a_c_id = #{aCId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imyrdahang.pojo.ArticleContentsExample" >
+    delete from article_contents
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imyrdahang.pojo.ArticleContents" >
+    insert into article_contents (a_c_id, a_c_keyword, a_c_depict, 
+      a_c_url, a_c_url_depict, ext1, 
+      ext2, a_c_content)
+    values (#{aCId,jdbcType=INTEGER}, #{aCKeyword,jdbcType=VARCHAR}, #{aCDepict,jdbcType=VARCHAR}, 
+      #{aCUrl,jdbcType=VARCHAR}, #{aCUrlDepict,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{aCContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imyrdahang.pojo.ArticleContents" >
+    insert into article_contents
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aCId != null" >
+        a_c_id,
+      </if>
+      <if test="aCKeyword != null" >
+        a_c_keyword,
+      </if>
+      <if test="aCDepict != null" >
+        a_c_depict,
+      </if>
+      <if test="aCUrl != null" >
+        a_c_url,
+      </if>
+      <if test="aCUrlDepict != null" >
+        a_c_url_depict,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="aCContent != null" >
+        a_c_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aCId != null" >
+        #{aCId,jdbcType=INTEGER},
+      </if>
+      <if test="aCKeyword != null" >
+        #{aCKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="aCDepict != null" >
+        #{aCDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="aCUrl != null" >
+        #{aCUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="aCUrlDepict != null" >
+        #{aCUrlDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="aCContent != null" >
+        #{aCContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imyrdahang.pojo.ArticleContentsExample" resultType="java.lang.Integer" >
+    select count(*) from article_contents
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update article_contents
+    <set >
+      <if test="record.aCId != null" >
+        a_c_id = #{record.aCId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aCKeyword != null" >
+        a_c_keyword = #{record.aCKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aCDepict != null" >
+        a_c_depict = #{record.aCDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aCUrl != null" >
+        a_c_url = #{record.aCUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aCUrlDepict != null" >
+        a_c_url_depict = #{record.aCUrlDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aCContent != null" >
+        a_c_content = #{record.aCContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update article_contents
+    set a_c_id = #{record.aCId,jdbcType=INTEGER},
+      a_c_keyword = #{record.aCKeyword,jdbcType=VARCHAR},
+      a_c_depict = #{record.aCDepict,jdbcType=VARCHAR},
+      a_c_url = #{record.aCUrl,jdbcType=VARCHAR},
+      a_c_url_depict = #{record.aCUrlDepict,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      a_c_content = #{record.aCContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update article_contents
+    set a_c_id = #{record.aCId,jdbcType=INTEGER},
+      a_c_keyword = #{record.aCKeyword,jdbcType=VARCHAR},
+      a_c_depict = #{record.aCDepict,jdbcType=VARCHAR},
+      a_c_url = #{record.aCUrl,jdbcType=VARCHAR},
+      a_c_url_depict = #{record.aCUrlDepict,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imyrdahang.pojo.ArticleContents" >
+    update article_contents
+    <set >
+      <if test="aCKeyword != null" >
+        a_c_keyword = #{aCKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="aCDepict != null" >
+        a_c_depict = #{aCDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="aCUrl != null" >
+        a_c_url = #{aCUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="aCUrlDepict != null" >
+        a_c_url_depict = #{aCUrlDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="aCContent != null" >
+        a_c_content = #{aCContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where a_c_id = #{aCId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.imyrdahang.pojo.ArticleContents" >
+    update article_contents
+    set a_c_keyword = #{aCKeyword,jdbcType=VARCHAR},
+      a_c_depict = #{aCDepict,jdbcType=VARCHAR},
+      a_c_url = #{aCUrl,jdbcType=VARCHAR},
+      a_c_url_depict = #{aCUrlDepict,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      a_c_content = #{aCContent,jdbcType=LONGVARCHAR}
+    where a_c_id = #{aCId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imyrdahang.pojo.ArticleContents" >
+    update article_contents
+    set a_c_keyword = #{aCKeyword,jdbcType=VARCHAR},
+      a_c_depict = #{aCDepict,jdbcType=VARCHAR},
+      a_c_url = #{aCUrl,jdbcType=VARCHAR},
+      a_c_url_depict = #{aCUrlDepict,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR}
+    where a_c_id = #{aCId,jdbcType=INTEGER}
+  </update>
+</mapper>
